@@ -1,4 +1,4 @@
 # TeamBalancer
 
-[TeamBalancer]([https://teambalancer.figma.site/)
+[TeamBalancer](https://teambalancer.figma.site/)
 
