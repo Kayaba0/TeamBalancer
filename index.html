@@ -71,7 +71,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
@@ -525,12 +525,75 @@ html:not(.dark) .btn-danger:hover{
   filter: brightness(1.05);
 }
 
+/* =====================
+   Mobile responsiveness
+   ===================== */
+
+/* Safe-area padding (iOS) */
+#toastRoot{
+  top: calc(0.75rem + env(safe-area-inset-top));
+}
+
+#modalRoot{
+  padding: calc(1rem + env(safe-area-inset-top))
+           calc(1rem + env(safe-area-inset-right))
+           calc(1rem + env(safe-area-inset-bottom))
+           calc(1rem + env(safe-area-inset-left));
+}
+
+/* Modal: keep content readable + scrollable on small screens */
+.modal-sheet{
+  max-height: min(84vh, 720px);
+  overflow: hidden;
+}
+.modal-content{
+  max-height: calc(min(84vh, 720px) - 76px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 2px; /* prevents content from hiding under scrollbar */
+}
+
+/* Make tap targets comfortable on mobile */
+@media (max-width: 640px){
+  .btn,
+  .btn-primary,
+  .btn-danger{
+    min-height: 44px;
+  }
+  header .btn,
+  header .btn-primary{
+    min-height: 40px;
+  }
+}
+
+/* Tight phones (<= 420px): avoid overflows in team header */
+@media (max-width: 420px){
+  /* reduce side padding slightly */
+  header .max-w-6xl.mx-auto.px-4{ padding-left: 0.75rem; padding-right: 0.75rem; }
+  main.max-w-6xl.mx-auto.px-4{ padding-left: 0.75rem; padding-right: 0.75rem; }
+
+  /* Team cards: allow wrap and shrink the big blocks */
+  .team-contrast > .flex{ flex-wrap: wrap; gap: 0.75rem; }
+  .team-contrast .team-letter{ width: 56px !important; height: 72px !important; font-size: 28px !important; border-radius: 1.25rem !important; }
+  .team-contrast .team-scorebox{ min-width: 0 !important; width: 100% !important; flex: 1 1 100%; height: 72px !important; border-radius: 1.25rem !important; padding-left: 1rem !important; padding-right: 1rem !important; }
+  .team-contrast .team-scorebox > div{ font-size: 36px !important; }
+
+  /* Matchup rows: keep 3 columns but reduce padding for fit */
+  .matchup-row > div{ padding-left: 0.6rem; padding-right: 0.6rem; }
+}
+
+/* Ultra-small phones (<= 360px): one-column player grid */
+@media (max-width: 360px){
+  .players-grid{ grid-template-columns: 1fr !important; }
+}
+
 
 </style>
 </head>
   <body class="bg-app antialiased">
     <div id="app" class="min-h-screen"></div>
-    <div id="toastRoot" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
+    <!-- Mobile-friendly: center toasts + keep them inside safe areas -->
+    <div id="toastRoot" class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 w-[calc(100%-2rem)] max-w-sm"></div>
     <div id="modalRoot" class="fixed inset-0 z-50 hidden"></div>
 
     <script>
@@ -669,12 +732,12 @@ html:not(.dark) .btn-danger:hover{
         root.className="fixed inset-0 z-50 flex items-center justify-center p-4";
         root.innerHTML=`
           <div class="absolute inset-0 modal-backdrop"></div>
-          <div class="relative w-full max-w-md card rounded-2xl shadow-xl p-5">
+          <div class="relative w-full max-w-md card rounded-2xl shadow-xl p-5 modal-sheet">
             <div class="flex items-center justify-between gap-4">
               <div class="text-lg font-semibold">${escapeHtml(title)}</div>
               <button id="modalClose" class="px-2 py-1 rounded-md btn">✕</button>
             </div>
-            <div class="mt-4">${contentHtml}</div>
+            <div class="mt-4 modal-content">${contentHtml}</div>
           </div>`;
         root.querySelector("#modalClose").addEventListener("click", closeModal);
         root.querySelector(".modal-backdrop").addEventListener("click", closeModal);
@@ -756,7 +819,7 @@ html:not(.dark) .btn-danger:hover{
       }
       function setMatchupCriteria(c) {
         state.matchupCriteria=c;
-        toast(`Criteri di matching cambiati: ${c==="strength"?"Forza":"Marcatura"}`,"info");
+        toast(`Criteri di matching cambiati: ${c==="strength"?"Forza":"Def"}`,"info");
         render();
       }
       function generateTeams(random=false) {
@@ -786,7 +849,7 @@ html:not(.dark) .btn-danger:hover{
                 <input name="name" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" placeholder="Es. Luca" required />
               </div>
               <div>
-                <label class="text-sm font-medium">Marcatura (1-5)</label>
+                <label class="text-sm font-medium">Def (1-5)</label>
                 <input name="markingLevel" type="number" min="1" max="5" value="3" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" required />
               </div>
               <div>
@@ -838,10 +901,10 @@ html:not(.dark) .btn-danger:hover{
             <div class="mt-2 grid grid-cols-2 gap-2 text-[12px]">
               <div class="metric-tile rounded-xl p-2">
                 <div class="flex items-center justify-between">
-                  <div class="text-[11px] muted">Marcatura</div>
+                  <div class="text-[11px] muted">Def</div>
                   <div class="text-[11px] font-semibold">${marking}/5</div>
                 </div>
-                <div class="mt-2 mark-dots flex gap-1" aria-label="Marcatura">
+                <div class="mt-2 mark-dots flex gap-1" aria-label="Def">
                   ${Array.from({length:5}).map((_,i)=>`<span class="${i < marking ? "on" : ""}"></span>`).join("")}
                 </div>
               </div>
@@ -873,7 +936,7 @@ html:not(.dark) .btn-danger:hover{
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="text-sm font-medium">Marcatura (1-5)</label>
+                <label class="text-sm font-medium">Def (1-5)</label>
                 <input name="markingLevel" type="number" min="1" max="5" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" value="${p.markingLevel}" required />
               </div>
               <div>
@@ -907,7 +970,7 @@ html:not(.dark) .btn-danger:hover{
   const n=Math.min(sortedA.length,sortedB.length);
   const rows=[];
   for (let i=0;i<n;i++) rows.push([sortedA[i],sortedB[i]]);
-  const title = isMarking ? "Marcatura" : "Forza";
+  const title = isMarking ? "Def" : "Forza";
 
   const diffTone = (d)=>{
     if (d<=1) return "rgba(34,211,238,0.42)";
@@ -948,7 +1011,7 @@ html:not(.dark) .btn-danger:hover{
           const v1=p1[key], v2=p2[key];
           const diff=Math.abs(v1-v2);
           return `
-            <div class="grid grid-cols-3 gap-2 items-stretch">
+            <div class="grid grid-cols-3 gap-2 items-stretch matchup-row">
               <div class="px-3 py-2 rounded-xl glass-soft matchup-card matchup-a">
                 <div class="flex items-center justify-between gap-2">
                   <div class="font-medium truncate">${escapeHtml(p1.name)}</div>
@@ -1011,7 +1074,7 @@ html:not(.dark) .btn-danger:hover{
     <div class="px-3 py-1.5 rounded-2xl pill text-[12px] whitespace-nowrap"
          style="background: color-mix(in oklab, var(--card) 80%, transparent);
                 border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);">
-      <span class="muted">Marcatura:</span> <span class="font-semibold tabular-nums">${t.totalMarking}</span>
+      <span class="muted">Def:</span> <span class="font-semibold tabular-nums">${t.totalMarking}</span>
     </div>
     <div class="px-3 py-1.5 rounded-2xl pill text-[12px] whitespace-nowrap"
          style="background: color-mix(in oklab, var(--card) 80%, transparent);
@@ -1053,7 +1116,7 @@ html:not(.dark) .btn-danger:hover{
             <span class="muted">Matchup:</span>
             <select id="criteriaSelect" class="criteria-select px-3 py-2 pr-10 rounded-lg border border-[var(--border)] bg-[var(--background)]/60 backdrop-blur">
               <option value="strength">Forza</option>
-              <option value="marking">Marcatura</option>
+              <option value="marking">Def</option>
             </select>
           </div>` : ""}
       </div>
@@ -1104,19 +1167,22 @@ html:not(.dark) .btn-danger:hover{
                 </div>
                 <div class="text-sm muted">Tocca un giocatore per selezionarlo</div>
               </div>
-              <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 players-grid">
                 ${state.players.map(p=>renderPlayerCard(p)).join("")}
               </div>
             </section>
 
             <section class="card rounded-2xl p-5">
-              <div class="flex flex-wrap items-center justify-between gap-3">
-                <div>
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div class="w-full sm:w-auto text-center sm:text-left">
                   <div class="font-semibold">Numero di squadre</div>
                   <div class="text-sm muted">La selezione deve essere divisibile per il numero di squadre</div>
                 </div>
-                <div class="flex gap-2">
-                  ${[2,3,4].map(n=>`<button class="px-3 py-2 rounded-lg text-sm ${state.numberOfTeams===n?"btn-primary":"btn"}" data-teams="${n}">${n} squadre</button>`).join("")}
+
+                <div class="w-full sm:w-auto">
+                  <div class="grid grid-cols-3 gap-2 justify-center">
+                    ${[2,3,4].map(n=>`<button class="w-full px-3 py-2 rounded-lg text-sm ${state.numberOfTeams===n?"btn-primary":"btn"}" data-teams="${n}">${n} squadre</button>`).join("")}
+                  </div>
                 </div>
               </div>
             </section>
@@ -1180,3 +1246,6 @@ html:not(.dark) .btn-danger:hover{
     </script>
   </body>
 </html>
+
+                    
+
