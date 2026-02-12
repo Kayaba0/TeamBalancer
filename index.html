@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="it" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeamBalancer</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#0b0f1a">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={darkMode:'class'};</script>
+    <style>
+:root {
+
+  --font-size: 14px;
+  --background: rgba(255,255,255,0.55);
+  --foreground: oklch(0.145 0 0);
+  --card: rgba(255,255,255,0.60);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #030213;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+}
+
+.dark {
+
+  --background: rgba(2,6,23,0.50);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+      body {
+        background: var(--background);
+        color: var(--foreground);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+      .card {
+        background: var(--card);
+        color: var(--card-foreground);
+        border: 1px solid var(--border);
+      }
+      .muted { color: var(--muted-foreground); }
+      .btn {
+        border: 1px solid var(--border);
+        background: var(--secondary);
+        color: var(--secondary-foreground);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--primary-foreground);
+        border-color: transparent;
+      }
+      .btn-danger {
+        background: var(--destructive);
+        color: var(--destructive-foreground);
+        border-color: transparent;
+      }
+      .btn:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+      }
+      .toast {
+        background: var(--popover);
+        color: var(--popover-foreground);
+        border: 1px solid var(--border);
+      }
+      .modal-backdrop { background: rgba(0,0,0,.55); }
+
+/* ===== Glass / modern UI ===== */
+body.bg-app {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 20% 10%, rgba(99,102,241,0.25), transparent 60%),
+    radial-gradient(900px 500px at 80% 20%, rgba(16,185,129,0.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 90%, rgba(236,72,153,0.18), transparent 65%),
+    linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,247,255,0.95));
+}
+html.dark body.bg-app {
+  background:
+    radial-gradient(1200px 600px at 20% 10%, rgba(99,102,241,0.28), transparent 60%),
+    radial-gradient(900px 500px at 80% 20%, rgba(16,185,129,0.20), transparent 60%),
+    radial-gradient(1000px 700px at 50% 90%, rgba(236,72,153,0.20), transparent 65%),
+    linear-gradient(180deg, rgba(2,6,23,0.92), rgba(2,6,23,0.92));
+}
+/* subtle grain (cheap but effective) */
+body.bg-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.06) 0px,
+      rgba(255,255,255,0.06) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: overlay;
+}
+
+.card {
+  border-radius: 1.25rem;
+  background: var(--card);
+  border: 1px solid rgba(148,163,184,0.35);
+  box-shadow:
+    0 18px 40px rgba(2,6,23,0.12),
+    0 2px 10px rgba(2,6,23,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+html.dark .card {
+  border-color: rgba(148,163,184,0.22);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.35),
+    0 2px 10px rgba(0,0,0,0.22);
+}
+
+.btn {
+  border-radius: 0.85rem;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(148,163,184,0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+html.dark .btn {
+  background: rgba(15,23,42,0.55);
+  border-color: rgba(148,163,184,0.22);
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(2,6,23,0.14);
+}
+html.dark .btn:hover { box-shadow: 0 10px 22px rgba(0,0,0,0.35); }
+.btn:active { transform: translateY(0px); }
+
+.btn-primary {
+  border-radius: 0.95rem;
+  background: linear-gradient(135deg, rgba(99,102,241,0.95), rgba(236,72,153,0.90));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 14px 26px rgba(99,102,241,0.22);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+  box-shadow: 0 18px 32px rgba(236,72,153,0.18), 0 14px 26px rgba(99,102,241,0.22);
+}
+
+input, select, textarea {
+  background: var(--background);
+  border-radius: 0.85rem;
+  border-color: rgba(148,163,184,0.35) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+html.dark input, html.dark select, html.dark textarea {
+  border-color: rgba(148,163,184,0.22) !important;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.25);
+  border-color: rgba(99,102,241,0.65) !important;
+}
+
+.modal-backdrop { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+    
+  
+      /* App-like glass surfaces */
+      .glass {
+        background: color-mix(in oklab, var(--card) 92%, transparent);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow:
+          0 10px 30px rgba(0,0,0,0.10),
+          inset 0 1px 0 rgba(255,255,255,0.12);
+      }
+      .glass-soft{
+        border: 1px solid var(--border);
+        background: color-mix(in oklab, var(--secondary) 78%, transparent);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .dark .glass {
+        box-shadow:
+          0 12px 36px rgba(0,0,0,0.45),
+          inset 0 1px 0 rgba(255,255,255,0.06);
+      }
+      .pill {
+        border: 1px solid var(--border);
+        background: color-mix(in oklab, var(--muted) 70%, transparent);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .player-card {
+        position: relative;
+        overflow: hidden;
+      }
+      .player-card::before{
+        content:"";
+        position:absolute;
+        inset:-1px;
+        background:
+          radial-gradient(600px 200px at 10% 0%, rgba(99,102,241,0.18), transparent 60%),
+          radial-gradient(600px 200px at 90% 100%, rgba(16,185,129,0.14), transparent 60%);
+        pointer-events:none;
+        opacity: 0.9;
+      }
+      .dark .player-card::before{
+        opacity: 0.55;
+      }
+      .player-card > * { position: relative; }
+
+      .player-card.is-selected::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        border-radius: inherit;
+        padding:2px;
+        background: linear-gradient(90deg, rgba(236,72,153,0.95), rgba(139,92,246,0.95), rgba(251,146,60,0.95));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events:none;
+        filter: drop-shadow(0 10px 24px rgba(236,72,153,0.18));
+      }
+      .team-card{
+        border-color: color-mix(in oklab, var(--team) 60%, var(--border));
+        background:
+          radial-gradient(750px 260px at 12% 0%,
+            color-mix(in oklab, var(--team) 48%, transparent),
+            transparent 62%),
+          radial-gradient(750px 260px at 90% 110%,
+            color-mix(in oklab, var(--team) 34%, transparent),
+            transparent 66%),
+          linear-gradient(180deg,
+            color-mix(in oklab, var(--team) 22%, var(--card)) 0%,
+            var(--card) 72%);
+      }
+      .metric-tile{
+        border: 1px solid var(--border);
+        background: color-mix(in oklab, var(--secondary) 85%, transparent);
+      }
+      .meter{
+        height: 8px;
+        border-radius: 9999px;
+        background: color-mix(in oklab, var(--muted) 80%, transparent);
+        overflow: hidden;
+      }
+      .meter > span{
+        display:block;
+        height:100%;
+        border-radius:9999px;
+        background: linear-gradient(90deg, rgba(99,102,241,0.9), rgba(16,185,129,0.9));
+      }
+      .mark-dots span{
+        width: 8px; height: 8px;
+        border-radius: 9999px;
+        display:inline-block;
+        border: 1px solid var(--border);
+        background: color-mix(in oklab, var(--muted) 70%, transparent);
+      }
+      .mark-dots span.on{
+        background: linear-gradient(180deg, rgba(99,102,241,0.95), rgba(59,130,246,0.85));
+        border-color: color-mix(in oklab, var(--border) 60%, rgba(99,102,241,0.6));
+      }
+
+
+      .player-name{ font-weight: 700; font-size: 1.02rem; letter-spacing: 0.2px; }
+.team-contrast{border:1px solid color-mix(in oklab, var(--team) 60%, var(--border));background: radial-gradient(900px 320px at 12% 0%, color-mix(in oklab, var(--team) 42%, transparent), transparent 62%),linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), color-mix(in oklab, var(--card) 84%, transparent));}
+.team-contrast .glass-soft{background: color-mix(in oklab, var(--team) 10%, var(--card));border:1px solid color-mix(in oklab, var(--team) 28%, var(--border));}
+
+
+/* --- UI tweaks: remove player-card wiggle, matchup coloring, nicer dropdown --- */
+
+/* Matchup rows: tint left/right like Team A/B */
+.matchup-card { border: 1px solid var(--border); }
+.matchup-a {
+  background: linear-gradient(180deg,
+    color-mix(in oklab, #38BDF8 18%, transparent),
+    color-mix(in oklab, var(--card) 92%, transparent)
+  );
+}
+.matchup-b {
+  background: linear-gradient(180deg,
+    color-mix(in oklab, #FB7185 18%, transparent),
+    color-mix(in oklab, var(--card) 92%, transparent)
+  );
+}
+
+/* Matchup dropdown */
+.criteria-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(180deg, color-mix(in oklab, var(--background) 70%, transparent), transparent),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23CBD5E1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 0, right 10px center;
+  background-size: auto, 18px 18px;
+}
+.criteria-select:hover {
+  border-color: color-mix(in oklab, #A78BFA 40%, var(--border));
+  box-shadow: 0 10px 24px rgba(2,6,23,0.18);
+}
+.criteria-select:focus {
+  outline: none;
+  border-color: color-mix(in oklab, #A78BFA 55%, var(--border));
+  box-shadow: 0 0 0 4px rgba(167,139,250,0.20);
+}
+
+
+/* Light mode: stronger contrast for team letter + score (dark mode unchanged) */
+html:not(.dark) .team-contrast{
+  /* Override inline custom props */
+  --teamNumber: color-mix(in oklab, var(--team) 45%, black) !important;
+  --teamGlow: color-mix(in oklab, var(--team) 20%, transparent) !important;
+}
+
+/* Option B: letter box with solid team color + white text */
+html:not(.dark) .team-contrast .team-letter{
+  background: color-mix(in oklab, var(--team) 80%, white) !important;
+  border-color: color-mix(in oklab, var(--team) 55%, black) !important;
+  color: white !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.28);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+/* Score box: slightly less transparent + deeper border so number pops */
+html:not(.dark) .team-contrast .team-scorebox{
+  background: color-mix(in oklab, var(--team) 22%, white) !important;
+  border-color: color-mix(in oklab, var(--team) 45%, black) !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+/* Light mode: improve Delete button contrast */
+html:not(.dark) .btn-danger{
+  background: color-mix(in oklab, var(--destructive) 88%, black) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.28);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+html:not(.dark) .btn-danger:hover{
+  filter: brightness(1.05);
+}
+
+
+</style>
+</head>
+  <body class="bg-app antialiased">
+    <div id="app" class="min-h-screen"></div>
+    <div id="toastRoot" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
+    <div id="modalRoot" class="fixed inset-0 z-50 hidden"></div>
+
+    <script>
+      const INITIAL_PLAYERS = [{"id": "1", "name": "Marco", "markingLevel": 5, "strength": 90}, {"id": "2", "name": "Bando", "markingLevel": 4, "strength": 85}, {"id": "3", "name": "Gabri A", "markingLevel": 5, "strength": 90}, {"id": "4", "name": "Valerio", "markingLevel": 4, "strength": 85}, {"id": "5", "name": "Marlon", "markingLevel": 2, "strength": 70}, {"id": "6", "name": "Thiago", "markingLevel": 4, "strength": 88}, {"id": "7", "name": "Andrea", "markingLevel": 5, "strength": 93}, {"id": "8", "name": "Gabri C", "markingLevel": 3, "strength": 84}, {"id": "9", "name": "Mav", "markingLevel": 5, "strength": 95}, {"id": "10", "name": "Ale Rave", "markingLevel": 3, "strength": 84}, {"id": "11", "name": "Andre J", "markingLevel": 3, "strength": 84}, {"id": "12", "name": "Tino", "markingLevel": 3, "strength": 80}, {"id": "13", "name": "Giose", "markingLevel": 3, "strength": 80}, {"id": "14", "name": "Scartez", "markingLevel": 3, "strength": 84}, {"id": "15", "name": "Ema", "markingLevel": 5, "strength": 92}, {"id": "16", "name": "Thomas", "markingLevel": 3, "strength": 90}, {"id": "17", "name": "Edo", "markingLevel": 4, "strength": 85}, {"id": "18", "name": "Moon", "markingLevel": 4, "strength": 85}, {"id": "19", "name": "Salvo", "markingLevel": 2, "strength": 78}, {"id": "20", "name": "Teo", "markingLevel": 3, "strength": 75}, {"id": "21", "name": "Saul", "markingLevel": 4, "strength": 88}, {"id": "22", "name": "Mauri", "markingLevel": 3, "strength": 80}, {"id": "23", "name": "Lollo", "markingLevel": 2, "strength": 72}, {"id": "24", "name": "Giallo", "markingLevel": 3, "strength": 75}];
+      const STORAGE_KEY = "teambalancer-players";
+      const ADMIN_SESSION_KEY = "teambalancer-admin-session";
+      const ADMIN_PASSWORD = "kayaba";
+      const THEME_KEY = "teambalancer-theme";
+
+      let state = {
+        isDarkMode: true,
+        isAdmin: false,
+        players: [],
+        selectedPlayerIds: [],
+        teams: [],
+        matchupCriteria: "strength",
+        numberOfTeams: 2,
+      };
+
+      function loadPlayersFromStorage() {
+        try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].id && parsed[0].name) return parsed;
+          }
+        } catch (e) { console.warn(e); }
+        return INITIAL_PLAYERS;
+      }
+      function savePlayersToStorage(players) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(players)); } catch (e) { console.warn(e); }
+      }
+      function checkAdminSession() {
+        try {
+          const session = localStorage.getItem(ADMIN_SESSION_KEY);
+          if (session) {
+            const { timestamp } = JSON.parse(session);
+            return Date.now() - timestamp < 24*60*60*1000;
+          }
+        } catch (e) { console.warn(e); }
+        return false;
+      }
+      function saveAdminSession() { try { localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify({timestamp:Date.now()})); } catch {} }
+      function clearAdminSession() { try { localStorage.removeItem(ADMIN_SESSION_KEY); } catch {} }
+
+      function applyTheme(isDark) {
+        state.isDarkMode = isDark;
+        if (isDark) document.documentElement.classList.add("dark");
+        else document.documentElement.classList.remove("dark");
+        try { localStorage.setItem(THEME_KEY, isDark ? "dark" : "light"); } catch {}
+      }
+      function initTheme() {
+        try {
+          const stored = localStorage.getItem(THEME_KEY);
+          if (stored === "light") return applyTheme(false);
+          if (stored === "dark") return applyTheme(true);
+        } catch {}
+        applyTheme(true);
+      }
+
+      function escapeHtml(str) {
+        return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+      }
+      function toast(message, kind="info") {
+        const root = document.getElementById("toastRoot");
+        const el = document.createElement("div");
+        el.className = "toast px-4 py-3 rounded-lg shadow-sm max-w-sm text-sm flex items-start gap-3";
+        const icon = kind === "success" ? "✅" : kind === "error" ? "⛔" : "ℹ️";
+        el.innerHTML = `<div class="pt-0.5">${icon}</div><div class="flex-1">${escapeHtml(message)}</div>`;
+        root.appendChild(el);
+        setTimeout(() => {
+          el.style.opacity="0"; el.style.transition="opacity .25s ease";
+          setTimeout(()=>el.remove(),260);
+        }, 2400);
+      }
+
+      function balanceTeams(players, numberOfTeams, useRandomBalance=false) {
+        if (players.length < numberOfTeams*2 || players.length % numberOfTeams !== 0) return [];
+        const teams = Array.from({length:numberOfTeams}, ()=>[]);
+        const teamColors = ["#38BDF8", "#FB7185", "#34D399", "#FBBF24"];
+        const teamNames = ["Squadra A","Squadra B","Squadra C","Squadra D"];
+
+        if (useRandomBalance) {
+          const shuffled=[...players];
+          for (let i=shuffled.length-1;i>0;i--) {
+            const j=Math.floor(Math.random()*(i+1));
+            [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
+          }
+          for (let i=0;i<shuffled.length;i++) teams[i%numberOfTeams].push(shuffled[i]);
+
+          let attempts=0, maxAttempts=50;
+          while (attempts<maxAttempts) {
+            const strengths=teams.map(t=>t.reduce((s,p)=>s+p.strength,0));
+            const diff=Math.max(...strengths)-Math.min(...strengths);
+            if (diff<=15) break;
+
+            let bestSwap=null, bestImprovement=diff;
+            for (let i=0;i<numberOfTeams;i++) for (let j=i+1;j<numberOfTeams;j++)
+              for (let pi=0;pi<teams[i].length;pi++) for (let pj=0;pj<teams[j].length;pj++) {
+                const newSi=strengths[i]-teams[i][pi].strength+teams[j][pj].strength;
+                const newSj=strengths[j]-teams[j][pj].strength+teams[i][pi].strength;
+                const newStrengths=[...strengths]; newStrengths[i]=newSi; newStrengths[j]=newSj;
+                const newDiff=Math.max(...newStrengths)-Math.min(...newStrengths);
+                if (newDiff<bestImprovement) { bestImprovement=newDiff; bestSwap={teamI:i,teamJ:j,playerI:pi,playerJ:pj}; }
+              }
+            if (bestSwap) {
+              const temp=teams[bestSwap.teamI][bestSwap.playerI];
+              teams[bestSwap.teamI][bestSwap.playerI]=teams[bestSwap.teamJ][bestSwap.playerJ];
+              teams[bestSwap.teamJ][bestSwap.playerJ]=temp;
+            } else break;
+            attempts++;
+          }
+        } else {
+          const sorted=[...players].sort((a,b)=>b.strength-a.strength);
+          for (let i=0;i<sorted.length;i++) {
+            const round=Math.floor(i/numberOfTeams);
+            const isEven=round%2===0;
+            const teamIndex=isEven ? (i%numberOfTeams) : (numberOfTeams-1-(i%numberOfTeams));
+            teams[teamIndex].push(sorted[i]);
+          }
+        }
+
+        return teams.map((teamPlayers,index)=>({
+          id:`team${String.fromCharCode(65+index)}`,
+          name:teamNames[index],
+          players:teamPlayers,
+          totalStrength:teamPlayers.reduce((s,p)=>s+p.strength,0),
+          totalMarking:teamPlayers.reduce((s,p)=>s+(Number(p.markingLevel)||0),0),
+          avgStrength: Math.round(teamPlayers.reduce((s,p)=>s+p.strength,0) / Math.max(1, teamPlayers.length)),
+          color:teamColors[index],
+        }));
+      }
+
+      function openModal(title, contentHtml, onSubmit) {
+        const root=document.getElementById("modalRoot");
+        root.className="fixed inset-0 z-50 flex items-center justify-center p-4";
+        root.innerHTML=`
+          <div class="absolute inset-0 modal-backdrop"></div>
+          <div class="relative w-full max-w-md card rounded-2xl shadow-xl p-5">
+            <div class="flex items-center justify-between gap-4">
+              <div class="text-lg font-semibold">${escapeHtml(title)}</div>
+              <button id="modalClose" class="px-2 py-1 rounded-md btn">✕</button>
+            </div>
+            <div class="mt-4">${contentHtml}</div>
+          </div>`;
+        root.querySelector("#modalClose").addEventListener("click", closeModal);
+        root.querySelector(".modal-backdrop").addEventListener("click", closeModal);
+        root.classList.remove("hidden");
+        if (onSubmit) {
+          const form=root.querySelector("form");
+          if (form) form.addEventListener("submit",(e)=>{e.preventDefault(); onSubmit(new FormData(form));});
+        }
+      }
+      function closeModal() {
+        const root=document.getElementById("modalRoot");
+        root.classList.add("hidden"); root.innerHTML="";
+      }
+
+      function resetSelection() {
+        state.selectedPlayerIds = [];
+        state.teams = [];
+        toast("Selezione azzerata", "info");
+        render();
+      }
+
+      function togglePlayer(playerId) {
+        const idx=state.selectedPlayerIds.indexOf(playerId);
+        if (idx>=0) state.selectedPlayerIds.splice(idx,1);
+        else state.selectedPlayerIds.push(playerId);
+        render();
+      }
+      function updatePlayer(updated) {
+        state.players=state.players.map(p=>p.id===updated.id?updated:p);
+        savePlayersToStorage(state.players);
+        toast(`${updated.name} aggiornato!`,"success");
+        render();
+      }
+      function addPlayer(newPlayer) {
+        const existing=state.players.map(p=>parseInt(p.id,10)).filter(n=>!isNaN(n));
+        const maxId=existing.length?Math.max(...existing):0;
+        const id=String(maxId+1);
+        state.players.push({...newPlayer,id});
+        savePlayersToStorage(state.players);
+        toast(`${newPlayer.name} aggiunto!`,"success");
+        render();
+      }
+      function deletePlayer(playerId) {
+        const player=state.players.find(p=>p.id===playerId);
+        state.players=state.players.filter(p=>p.id!==playerId);
+        state.selectedPlayerIds=state.selectedPlayerIds.filter(id=>id!==playerId);
+        savePlayersToStorage(state.players);
+        if (player) toast(`${player.name} rimosso!`,"success");
+        render();
+      }
+
+      function adminLogin() {
+        openModal("Accesso Admin", `
+          <form class="space-y-4">
+            <div>
+              <label class="text-sm font-medium">Password</label>
+              <input name="password" type="password" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" placeholder="Inserisci password" required />
+            </div>
+            <button class="w-full px-4 py-2 rounded-lg btn-primary font-medium">Accedi</button>
+          </form>
+        `, (fd) => {
+          const pw=fd.get("password");
+          if (pw===ADMIN_PASSWORD) {
+            state.isAdmin=true; saveAdminSession();
+            toast("Accesso admin confermato!","success");
+            closeModal(); render();
+          } else toast("Password non corretta!","error");
+        });
+      }
+      function adminLogout() {
+        state.isAdmin=false; clearAdminSession();
+        toast("Disconnesso dalla modalità admin","info");
+        render();
+      }
+      function setNumberOfTeams(n) {
+        state.numberOfTeams=n; state.teams=[];
+        toast(`Modalità cambiata: ${n} squadre`,"info");
+        render();
+      }
+      function setMatchupCriteria(c) {
+        state.matchupCriteria=c;
+        toast(`Criteri di matching cambiati: ${c==="strength"?"Forza":"Marcatura"}`,"info");
+        render();
+      }
+      function generateTeams(random=false) {
+        const selected=state.players.filter(p=>state.selectedPlayerIds.includes(p.id));
+        const newTeams=balanceTeams(selected,state.numberOfTeams,random);
+        state.teams=newTeams;
+        if (newTeams.length>0) {
+          const strengths=newTeams.map(t=>t.totalStrength);
+          const diff=Math.max(...strengths)-Math.min(...strengths);
+          toast(`${state.numberOfTeams} squadre ${random?"rimescolate":"generate"}! Differenza forza: ${diff} punti`,"success");
+        } else {
+          toast("Selezione non valida: scegli un numero di giocatori divisibile per il numero di squadre (minimo 2 per squadra).","error");
+        }
+        render();
+      }
+
+      function renderPlayerManagement() {
+        return `
+          <section class="card glass rounded-2xl p-5">
+            <div>
+              <div class="font-semibold">Gestione giocatori</div>
+              <div class="text-sm muted">Aggiungi / modifica i valori (solo admin)</div>
+            </div>
+            <form id="addPlayerForm" class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="text-sm font-medium">Nome</label>
+                <input name="name" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" placeholder="Es. Luca" required />
+              </div>
+              <div>
+                <label class="text-sm font-medium">Marcatura (1-5)</label>
+                <input name="markingLevel" type="number" min="1" max="5" value="3" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" required />
+              </div>
+              <div>
+                <label class="text-sm font-medium">Forza</label>
+                <input name="strength" type="number" min="0" max="100" value="80" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" required />
+              </div>
+              <div class="sm:col-span-3 flex justify-end">
+                <button class="px-4 py-2 rounded-lg btn-primary font-medium">Aggiungi giocatore</button>
+              </div>
+            </form>
+          </section>`;
+      }      function renderPlayerCard(p) {
+        const selected = state.selectedPlayerIds.includes(p.id);
+        const initials = (p.name || "")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 2)
+          .map(w => w[0].toUpperCase())
+          .join("") || "👤";
+        const strengthPct = Math.max(0, Math.min(100, Number(p.strength) || 0));
+        const marking = Math.max(1, Math.min(5, Number(p.markingLevel) || 1));
+        return `
+          <div class="card glass player-card ${selected ? "is-selected" : ""} rounded-xl p-2 cursor-pointer transition hover:shadow-lg" data-player="${p.id}">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2 min-w-0">
+                <div class="h-8 w-8 rounded-xl flex items-center justify-center text-xs font-semibold pill"
+                     style="background: color-mix(in oklab, var(--muted) 55%, transparent);">
+                  ${escapeHtml(initials)}
+                </div>
+                <div class="min-w-0">
+                  <div class="font-semibold truncate leading-tight">${escapeHtml(p.name)}</div>
+                  ${selected ? `
+                    <div class="mt-1">
+                      <span class="inline-flex items-center gap-2 text-[11px] px-2 py-1 rounded-full"
+                            style="background: linear-gradient(90deg, rgba(236,72,153,0.22), rgba(139,92,246,0.18), rgba(251,146,60,0.18));
+                                   border: 1px solid color-mix(in oklab, var(--border) 65%, transparent);">
+                        <span class="inline-block h-2 w-2 rounded-full" style="background: rgba(236,72,153,0.95)"></span>
+                        Selezionato
+                      </span>
+                    </div>` : ``}
+                </div>
+              </div>
+              <div class="text-xs px-2 py-1 rounded-full pill shrink-0">
+                ${selected ? "✓" : "+"}
+              </div>
+            </div>
+
+            <div class="mt-2 grid grid-cols-2 gap-2 text-[12px]">
+              <div class="metric-tile rounded-xl p-2">
+                <div class="flex items-center justify-between">
+                  <div class="text-[11px] muted">Marcatura</div>
+                  <div class="text-[11px] font-semibold">${marking}/5</div>
+                </div>
+                <div class="mt-2 mark-dots flex gap-1" aria-label="Marcatura">
+                  ${Array.from({length:5}).map((_,i)=>`<span class="${i < marking ? "on" : ""}"></span>`).join("")}
+                </div>
+              </div>
+
+              <div class="metric-tile rounded-xl p-2">
+                <div class="flex items-center justify-between">
+                  <div class="text-[11px] muted">Forza</div>
+                  <div class="text-[11px] font-semibold">${strengthPct}</div>
+                </div>
+                <div class="mt-2 meter" aria-label="Forza">
+                  <span style="width:${strengthPct}%;"></span>
+                </div>
+              </div>
+            </div>
+
+            ${state.isAdmin ? `
+              <div class="mt-2 flex justify-end gap-2">
+                <button data-action="1" data-edit="${p.id}" class="px-3 py-2 rounded-xl btn text-sm">✏️ Modifica</button>
+                <button data-action="1" data-delete="${p.id}" class="px-3 py-2 rounded-xl btn-danger text-sm">🗑️ Elimina</button>
+              </div>` : ""}
+          </div>`;
+      }
+      function openEditPlayerModal(p) {
+        openModal(`Modifica ${p.name}`, `
+          <form class="space-y-4">
+            <div>
+              <label class="text-sm font-medium">Nome</label>
+              <input name="name" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" value="${escapeHtml(p.name)}" required />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-sm font-medium">Marcatura (1-5)</label>
+                <input name="markingLevel" type="number" min="1" max="5" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" value="${p.markingLevel}" required />
+              </div>
+              <div>
+                <label class="text-sm font-medium">Forza</label>
+                <input name="strength" type="number" min="0" max="100" class="mt-1 w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]" value="${p.strength}" required />
+              </div>
+            </div>
+            <div class="flex justify-end gap-2">
+              <button type="button" id="cancelEdit" class="px-3 py-2 rounded-lg btn">Annulla</button>
+              <button class="px-3 py-2 rounded-lg btn-primary font-medium">Salva</button>
+            </div>
+          </form>
+        `, (fd)=>{
+          const name=String(fd.get("name")||"").trim();
+          const markingLevel=parseInt(fd.get("markingLevel"),10);
+          const strength=parseInt(fd.get("strength"),10);
+          if (!name) return toast("Nome non valido","error");
+          updatePlayer({...p,name,markingLevel,strength});
+          closeModal();
+        });
+        document.getElementById("cancelEdit").onclick=closeModal;
+      }
+
+      function renderMatchups() {
+  const [a,b]=state.teams;
+  if (!a||!b) return "";
+  const isMarking = state.matchupCriteria==="marking";
+  const key = isMarking ? "markingLevel" : "strength";
+  const sortedA=[...a.players].sort((x,y)=>y[key]-x[key]);
+  const sortedB=[...b.players].sort((x,y)=>y[key]-x[key]);
+  const n=Math.min(sortedA.length,sortedB.length);
+  const rows=[];
+  for (let i=0;i<n;i++) rows.push([sortedA[i],sortedB[i]]);
+  const title = isMarking ? "Marcatura" : "Forza";
+
+  const diffTone = (d)=>{
+    if (d<=1) return "rgba(34,211,238,0.42)";
+    if (d<=3) return "rgba(251,191,36,0.42)";
+    return "rgba(244,114,182,0.42)";
+  };
+
+  return `
+    <section class="card rounded-2xl p-5">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div class="font-semibold">Matchup per ${title}</div>
+          <div class="text-sm muted mt-1">Accoppiamento 1↔1 per valori simili (ordinati decrescente)</div>
+        </div>
+        <div class="px-3 py-2 rounded-xl pill text-sm">
+          Criterio: <span class="font-semibold">${title}</span>
+        </div>
+      </div>
+
+      <div class="mt-4 grid grid-cols-3 gap-2 text-xs muted">
+        <div class="px-3 py-2 rounded-xl glass-soft">
+          <span class="inline-flex items-center gap-2">
+            <span class="inline-block h-2 w-2 rounded-full" style="background:${a.color}"></span>
+            ${a.name}
+          </span>
+        </div>
+        <div class="px-3 py-2 rounded-xl glass-soft text-center">Δ</div>
+        <div class="px-3 py-2 rounded-xl glass-soft text-right">
+          <span class="inline-flex items-center justify-end gap-2 w-full">
+            ${b.name}
+            <span class="inline-block h-2 w-2 rounded-full" style="background:${b.color}"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="mt-2 space-y-2">
+        ${rows.map(([p1,p2],idx)=>{
+          const v1=p1[key], v2=p2[key];
+          const diff=Math.abs(v1-v2);
+          return `
+            <div class="grid grid-cols-3 gap-2 items-stretch">
+              <div class="px-3 py-2 rounded-xl glass-soft matchup-card matchup-a">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="font-medium truncate">${escapeHtml(p1.name)}</div>
+                  <span class="px-2 py-1 rounded-full pill text-[11px]">${v1}</span>
+                </div>
+              </div>
+
+              <div class="px-3 py-2 rounded-xl flex items-center justify-center"
+                   style="background:${diffTone(diff)}; border:1px solid var(--border);">
+                <span class="text-[11px] font-semibold">Δ ${diff}</span>
+              </div>
+
+              <div class="px-3 py-2 rounded-xl glass-soft matchup-card matchup-b">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-2 py-1 rounded-full pill text-[11px]">${v2}</span>
+                  <div class="font-medium truncate text-right">${escapeHtml(p2.name)}</div>
+                </div>
+              </div>
+            </div>`;
+        }).join("")}
+      </div>
+    </section>`;
+}
+
+      function renderTeams() {
+  const teamCards = state.teams.map((t, idx)=> {
+    // Strong, clearly distinct colors for 2-team mode (A = blue, B = red)
+    const teamColor = (state.numberOfTeams===2 && state.teams.length===2)
+      ? (idx===0 ? "#38BDF8" : "#FB7185")
+      : (t.color || "#A78BFA");
+
+    const accentBg = `radial-gradient(900px 260px at 20% 10%, color-mix(in oklab, ${teamColor} 42%, transparent), transparent 62%),
+                      radial-gradient(700px 220px at 80% 0%, color-mix(in oklab, ${teamColor} 18%, transparent), transparent 60%),
+                      linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), color-mix(in oklab, var(--card) 92%, transparent))`;
+
+    return `
+    <div class="card glass rounded-3xl p-3 team-contrast" style="--team:${teamColor}; --teamNumber: color-mix(in oklab, ${teamColor} 92%, white); --teamGlow: color-mix(in oklab, ${teamColor} 45%, transparent); background:${accentBg}; border:1px solid color-mix(in oklab, ${teamColor} 28%, var(--border));">
+      
+<div class="flex items-start justify-between gap-3">
+  <div class="flex items-start gap-3 min-w-0">
+    <div class="team-letter px-0 py-0 rounded-3xl font-black leading-none text-[34px] flex items-center justify-center w-[64px] h-[84px] shrink-0"
+         style="background: color-mix(in oklab, ${teamColor} 22%, transparent);
+                border: 1px solid color-mix(in oklab, ${teamColor} 38%, transparent);
+                color: var(--teamNumber);
+                box-shadow: 0 0 26px color-mix(in oklab, ${teamColor} 30%, transparent);">
+      ${String.fromCharCode(65+idx)}
+    </div>
+
+    <div class="team-scorebox px-5 py-0 rounded-3xl text-center min-w-[160px] h-[84px] flex items-center justify-center shrink-0"
+         style="background: color-mix(in oklab, ${teamColor} 18%, transparent);
+                border: 1px solid color-mix(in oklab, ${teamColor} 34%, transparent);
+                box-shadow: 0 0 26px color-mix(in oklab, ${teamColor} 22%, transparent);">
+      <div class="text-[44px] font-black leading-none tabular-nums"
+           style="color: var(--teamNumber);
+                  text-shadow: 0 0 22px color-mix(in oklab, ${teamColor} 45%, transparent);">${t.totalStrength}</div>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2 shrink-0 items-end">
+    <div class="px-3 py-1.5 rounded-2xl pill text-[12px] whitespace-nowrap"
+         style="background: color-mix(in oklab, var(--card) 80%, transparent);
+                border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);">
+      <span class="muted">Marcatura:</span> <span class="font-semibold tabular-nums">${t.totalMarking}</span>
+    </div>
+    <div class="px-3 py-1.5 rounded-2xl pill text-[12px] whitespace-nowrap"
+         style="background: color-mix(in oklab, var(--card) 80%, transparent);
+                border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);">
+      <span class="muted">Avg forza:</span> <span class="font-semibold tabular-nums">${t.avgStrength}</span>
+    </div>
+  </div>
+</div>
+
+<div class="mt-2.5 space-y-2">
+        ${t.players.map(p=>`
+          <div class="px-3 py-1.5 rounded-2xl text-sm"
+               style="background: color-mix(in oklab, ${teamColor} 10%, var(--card));
+                      border: 1px solid color-mix(in oklab, ${teamColor} 20%, var(--border));">
+            <div class="flex items-center justify-between gap-3">
+              <div class="font-medium truncate">${escapeHtml(p.name)}</div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="px-2 py-1 rounded-full pill">Forza <span class="font-semibold">${p.strength}</span></span>
+                <span class="px-2 py-1 rounded-full pill">Marc. <span class="font-semibold">${p.markingLevel}</span></span>
+              </div>
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+  });
+
+  const teamsHtml = teamCards.join("");
+
+  const matchup = state.numberOfTeams===2 ? renderMatchups() : "";
+  return `
+    <section class="space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <div class="text-lg font-semibold">Squadre generate</div>
+          <div class="text-sm muted">Punteggi complessivi e lista giocatori</div>
+        </div>
+        ${state.numberOfTeams===2 ? `
+          <div class="flex items-center gap-2 text-sm">
+            <span class="muted">Matchup:</span>
+            <select id="criteriaSelect" class="criteria-select px-3 py-2 pr-10 rounded-lg border border-[var(--border)] bg-[var(--background)]/60 backdrop-blur">
+              <option value="strength">Forza</option>
+              <option value="marking">Marcatura</option>
+            </select>
+          </div>` : ""}
+      </div>
+      ${
+        (state.numberOfTeams===2 && state.teams.length===2)
+          ? `<div class="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
+              ${teamCards[0]}
+              ${teamCards[1]}
+            </div>`
+          : `<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">${teamsHtml}</div>`
+      }
+      ${matchup}
+    </section>`;
+}
+
+      function render() {
+        const app=document.getElementById("app");
+        const selectedCount=state.selectedPlayerIds.length;
+        const isValid = selectedCount >= state.numberOfTeams*2 && selectedCount % state.numberOfTeams === 0;
+
+        app.innerHTML = `
+          <header class="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur">
+            <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <img src="./icon-512.png" alt="logo" class="w-9 h-9 rounded-xl" />
+                <div>
+                  <div class="text-lg font-semibold leading-tight">TeamBalancer</div>
+                  <div class="text-xs muted">Crea squadre bilanciate in un click</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 flex-wrap justify-end">
+                <button id="resetBtn" class="px-3 py-2 rounded-lg btn text-sm" title="Azzera selezione">↺ <span class="ml-1 hidden sm:inline">Reset</span></button>
+                <button id="themeToggle" class="px-3 py-2 rounded-lg btn text-sm">${state.isDarkMode ? "🌙" : "☀️"} <span class="ml-1 hidden sm:inline">${state.isDarkMode?"Scuro":"Chiaro"}</span></button>
+                ${state.isAdmin ? `<button id="adminLogout" class="px-3 py-2 rounded-lg btn text-sm">🚪 <span class="ml-1 hidden sm:inline">Logout</span></button>` :
+                                  `<button id="adminLogin" class="px-3 py-2 rounded-lg btn text-sm">👤 <span class="ml-1 hidden sm:inline">Admin</span></button>`}
+              </div>
+            </div>
+          </header>
+
+          <main class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+            ${state.isAdmin ? renderPlayerManagement() : ""}
+
+            <section class="card rounded-2xl p-5">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div class="font-semibold">Giocatori</div>
+                  <div class="text-sm muted">Selezionati: <span class="font-medium">${selectedCount}</span></div>
+                </div>
+                <div class="text-sm muted">Tocca un giocatore per selezionarlo</div>
+              </div>
+              <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                ${state.players.map(p=>renderPlayerCard(p)).join("")}
+              </div>
+            </section>
+
+            <section class="card rounded-2xl p-5">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <div class="font-semibold">Numero di squadre</div>
+                  <div class="text-sm muted">La selezione deve essere divisibile per il numero di squadre</div>
+                </div>
+                <div class="flex gap-2">
+                  ${[2,3,4].map(n=>`<button class="px-3 py-2 rounded-lg text-sm ${state.numberOfTeams===n?"btn-primary":"btn"}" data-teams="${n}">${n} squadre</button>`).join("")}
+                </div>
+              </div>
+            </section>
+
+            
+            <section class="card glass rounded-2xl p-4">
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button id="generateBtn" class="w-full sm:w-auto px-7 py-3 rounded-xl btn-primary font-semibold text-base shadow-lg" ${isValid?"":"disabled"}>Genera squadre</button>
+                <button id="shuffleBtn" class="w-full sm:w-auto px-7 py-3 rounded-xl btn font-semibold text-base" ${(isValid && state.teams.length>0)?"":"disabled"}>Rimescola</button>
+              </div>
+              <div class="mt-3 text-center text-sm muted">${isValid ? "✅ Selezione valida" : "⚠️ Selezione non valida"}</div>
+            </section>
+
+            ${state.teams.length ? renderTeams() : ""}
+          </main>
+        `;
+
+        document.getElementById("themeToggle").onclick = () => applyTheme(!state.isDarkMode);
+        const resetBtn=document.getElementById("resetBtn"); if (resetBtn) resetBtn.onclick=resetSelection;
+        const loginBtn=document.getElementById("adminLogin"); if (loginBtn) loginBtn.onclick=adminLogin;
+        const logoutBtn=document.getElementById("adminLogout"); if (logoutBtn) logoutBtn.onclick=adminLogout;
+
+        app.querySelectorAll("[data-player]").forEach(el=>{
+          el.addEventListener("click",(e)=>{
+            if (e.target.closest("[data-action]")) return;
+            togglePlayer(el.getAttribute("data-player"));
+          });
+        });
+        app.querySelectorAll("[data-teams]").forEach(btn=>btn.addEventListener("click",()=>setNumberOfTeams(parseInt(btn.getAttribute("data-teams"),10))));
+        document.getElementById("generateBtn").onclick=()=>generateTeams(false);
+        document.getElementById("shuffleBtn").onclick=()=>generateTeams(true);
+
+        if (state.isAdmin) {
+          app.querySelectorAll("[data-edit]").forEach(btn=>btn.addEventListener("click",(e)=>{e.preventDefault(); const id=btn.getAttribute("data-edit"); const p=state.players.find(x=>x.id===id); if(p) openEditPlayerModal(p);}));
+          app.querySelectorAll("[data-delete]").forEach(btn=>btn.addEventListener("click",(e)=>{e.preventDefault(); const id=btn.getAttribute("data-delete"); const p=state.players.find(x=>x.id===id); if(!p) return;
+            openModal("Conferma rimozione", `<div class="text-sm muted">Vuoi rimuovere <span class="font-medium">${escapeHtml(p.name)}</span>?</div><div class="mt-4 flex gap-2 justify-end"><button id="cancelDel" class="px-3 py-2 rounded-lg btn">Annulla</button><button id="confirmDel" class="px-3 py-2 rounded-lg btn-danger font-medium">Rimuovi</button></div>`);
+            document.getElementById("cancelDel").onclick=closeModal;
+            document.getElementById("confirmDel").onclick=()=>{closeModal(); deletePlayer(id);};
+          }));
+          const addForm=document.getElementById("addPlayerForm");
+          if (addForm) addForm.addEventListener("submit",(e)=>{e.preventDefault(); const fd=new FormData(addForm);
+            const name=String(fd.get("name")||"").trim();
+            const markingLevel=parseInt(fd.get("markingLevel"),10);
+            const strength=parseInt(fd.get("strength"),10);
+            if (!name) return toast("Inserisci un nome valido","error");
+            addPlayer({name, markingLevel, strength});
+            addForm.reset();
+          });
+        }
+
+        const crit=document.getElementById("criteriaSelect");
+        if (crit) { crit.value=state.matchupCriteria; crit.onchange=()=>setMatchupCriteria(crit.value); }
+      }
+
+      (function init() {
+        initTheme();
+        state.players=loadPlayersFromStorage();
+        state.isAdmin=checkAdminSession();
+        render();
+      })();
+    </script>
+  </body>
+</html>
