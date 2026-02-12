@@ -588,7 +588,59 @@ html:not(.dark) .btn-danger:hover{
 }
 
 
+
+/* Mobile grid toggle */
+@media (max-width: 640px){
+  .players-grid.mobile-two-cols{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.6rem !important;
+  }
+}
+
+/* Mobile grid toggle (Giocatori) */
+@media (max-width: 640px){
+  .players-grid.mobile-two-cols{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.6rem !important;
+  }
+}
+
+
+/* Mobile: Matchup - shrink middle diff column to free space for names */
+@media (max-width: 480px){
+  .matchup-head{ grid-template-columns: minmax(0,1fr) 52px minmax(0,1fr) !important; }
+  .matchup-row{  grid-template-columns: minmax(0,1fr) 52px minmax(0,1fr) !important; }
+  .matchup-row > div:nth-child(2){ padding-left: 0.35rem !important; padding-right: 0.35rem !important; }
+  .matchup-row > div:nth-child(1), .matchup-row > div:nth-child(3){ padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+}
+
+
+/* Mobile: Matchup - even smaller diff column (number only) */
+@media (max-width: 480px){
+  .matchup-head{ grid-template-columns: minmax(0,1fr) 44px minmax(0,1fr) !important; }
+  .matchup-row{  grid-template-columns: minmax(0,1fr) 44px minmax(0,1fr) !important; }
+  .matchup-row > div:nth-child(2){
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+}
+
+
+/* Mobile: Matchup - ultra compact diff column */
+@media (max-width: 480px){
+  .matchup-head{ grid-template-columns: minmax(0,1fr) 22px minmax(0,1fr) !important; }
+  .matchup-row{  grid-template-columns: minmax(0,1fr) 22px minmax(0,1fr) !important; }
+  .matchup-row > div:nth-child(2){
+    padding-left: 0.15rem !important;
+    padding-right: 0.15rem !important;
+  }
+  .matchup-row > div:nth-child(2) span{
+    font-size: 0.8rem !important;
+  }
+}
+
 </style>
+
 </head>
   <body class="bg-app antialiased">
     <div id="app" class="min-h-screen"></div>
@@ -990,7 +1042,7 @@ html:not(.dark) .btn-danger:hover{
         </div>
       </div>
 
-      <div class="mt-4 grid grid-cols-3 gap-2 text-xs muted">
+      <div class="mt-4 grid grid-cols-3 gap-2 text-xs muted matchup-head">
         <div class="px-3 py-2 rounded-xl glass-soft">
           <span class="inline-flex items-center gap-2">
             <span class="inline-block h-2 w-2 rounded-full" style="background:${a.color}"></span>
@@ -1021,7 +1073,7 @@ html:not(.dark) .btn-danger:hover{
 
               <div class="px-3 py-2 rounded-xl flex items-center justify-center"
                    style="background:${diffTone(diff)}; border:1px solid var(--border);">
-                <span class="text-[11px] font-semibold">Δ ${diff}</span>
+                <span class="text-[11px] font-semibold">${diff}</span>
               </div>
 
               <div class="px-3 py-2 rounded-xl glass-soft matchup-card matchup-b">
@@ -1051,7 +1103,7 @@ html:not(.dark) .btn-danger:hover{
     <div class="card glass rounded-3xl p-3 team-contrast" style="--team:${teamColor}; --teamNumber: color-mix(in oklab, ${teamColor} 92%, white); --teamGlow: color-mix(in oklab, ${teamColor} 45%, transparent); background:${accentBg}; border:1px solid color-mix(in oklab, ${teamColor} 28%, var(--border));">
       
 <div class="flex items-start justify-between gap-3">
-  <div class="flex items-start gap-3 min-w-0">
+<div class="flex items-start gap-3 min-w-0">
     <div class="team-letter px-0 py-0 rounded-3xl font-black leading-none text-[34px] flex items-center justify-center w-[64px] h-[84px] shrink-0"
          style="background: color-mix(in oklab, ${teamColor} 22%, transparent);
                 border: 1px solid color-mix(in oklab, ${teamColor} 38%, transparent);
@@ -1147,7 +1199,7 @@ html:not(.dark) .btn-danger:hover{
                   <div class="text-xs muted">Crea squadre bilanciate in un click</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2 flex-wrap justify-end">
+              <div class="flex items-center gap-2 flex-nowrap justify-end">
                 <button id="resetBtn" class="px-3 py-2 rounded-lg btn text-sm" title="Azzera selezione">↺ <span class="ml-1 hidden sm:inline">Reset</span></button>
                 <button id="themeToggle" class="px-3 py-2 rounded-lg btn text-sm">${state.isDarkMode ? "🌙" : "☀️"} <span class="ml-1 hidden sm:inline">${state.isDarkMode?"Scuro":"Chiaro"}</span></button>
                 ${state.isAdmin ? `<button id="adminLogout" class="px-3 py-2 rounded-lg btn text-sm">🚪 <span class="ml-1 hidden sm:inline">Logout</span></button>` :
@@ -1165,7 +1217,23 @@ html:not(.dark) .btn-danger:hover{
                   <div class="font-semibold">Giocatori</div>
                   <div class="text-sm muted">Selezionati: <span class="font-medium">${selectedCount}</span></div>
                 </div>
-                <div class="text-sm muted">Tocca un giocatore per selezionarlo</div>
+                <div class="text-sm muted flex items-center gap-2"><span>Tocca un giocatore per selezionarlo</span><button id="mobileGridToggle" class="sm:hidden ml-1 p-2 rounded-lg btn flex items-center justify-center" title="Cambia layout">
+        <span class="icon-one">
+<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="4" y="4" width="6" height="6" rx="1"></rect>
+  <rect x="14" y="4" width="6" height="6" rx="1"></rect>
+  <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+  <rect x="14" y="14" width="6" height="6" rx="1"></rect>
+</svg>
+</span>
+        <span class="icon-two hidden">
+<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="5" y1="7" x2="19" y2="7"></line>
+  <line x1="5" y1="12" x2="19" y2="12"></line>
+  <line x1="5" y1="17" x2="19" y2="17"></line>
+</svg>
+</span>
+    </button></div>
               </div>
               <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 players-grid">
                 ${state.players.map(p=>renderPlayerCard(p)).join("")}
@@ -1243,9 +1311,33 @@ html:not(.dark) .btn-danger:hover{
         state.isAdmin=checkAdminSession();
         render();
       })();
-    </script>
+    
+
+      // Mobile-only: toggle players grid between 1 and 2 columns
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest("#mobileGridToggle");
+        if (!btn) return;
+        const grid = document.querySelector(".players-grid");
+        if (!grid) return;
+
+        grid.classList.toggle("mobile-two-cols");
+        
+    const one = btn.querySelector(".icon-one");
+    const two = btn.querySelector(".icon-two");
+    if(grid.classList.contains("mobile-two-cols")){
+        one.classList.add("hidden");
+        two.classList.remove("hidden");
+    } else {
+        two.classList.add("hidden");
+        one.classList.remove("hidden");
+    }
+    
+      });
+</script>
   </body>
+
 </html>
 
                     
+
 
