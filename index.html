@@ -700,6 +700,22 @@ html:not(.dark) .btn-danger:hover{
   }
 }
 
+
+/* Mobile: stack ONLY action buttons (not stat boxes) */
+@media (max-width: 640px){
+  .player-card .mt-2.flex.gap-2{
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  .player-card .mt-2.flex.gap-2 button{
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
 </style>
 
 </head>
